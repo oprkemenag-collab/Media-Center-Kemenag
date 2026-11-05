@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Media Center Kemenag</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; } </style>
+</head>
+<body class="p-8">
+
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+        <div class="flex justify-between items-center border-b pb-4 mb-6">
+            <h2 class="text-2xl font-bold text-[#1a5336]">Admin Panel Media Center</h2>
+            <a href="index.html" class="text-sm text-blue-600 hover:underline">Kembali ke Beranda</a>
+        </div>
+
+        <!-- Form Berita -->
+        <div class="mb-10 bg-green-50 p-6 rounded-xl border border-green-100">
+            <h3 class="font-bold text-lg text-green-800 mb-4">Input Berita Terbaru</h3>
+            <form id="formBerita" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Judul Berita</label>
+                    <input type="text" id="judulBerita" required class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Tanggal</label>
+                    <input type="text" id="tanggalBerita" placeholder="Contoh: 30 Okt 2025" required class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">URL Gambar</label>
+                    <input type="url" id="gambarBerita" placeholder="https://link-gambar.com/foto.jpg" required class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-red-600">Password Admin</label>
+                    <input type="password" id="passBerita" required class="mt-1 w-full p-2 border border-red-300 rounded-lg">
+                </div>
+                <button type="submit" class="bg-[#1a5336] text-white px-6 py-2 rounded-lg font-medium hover:bg-green-800 transition">Simpan Berita</button>
+            </form>
+        </div>
+
+        <!-- Form Pengumuman -->
+        <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+            <h3 class="font-bold text-lg text-blue-800 mb-4">Input Pengumuman</h3>
+            <form id="formPengumuman" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Teks Pengumuman</label>
+                    <input type="text" id="teksPengumuman" required class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Tanggal</label>
+                    <input type="text" id="tanggalPengumuman" placeholder="Contoh: 30 Okt 2025" required class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-red-600">Password Admin</label>
+                    <input type="password" id="passPengumuman" required class="mt-1 w-full p-2 border border-red-300 rounded-lg">
+                </div>
+                <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-800 transition">Simpan Pengumuman</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // MASUKKAN URL DEPLOYMENT APPS SCRIPT YANG BARU DI SINI
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyQNSOIB7Wz2CXhTahDvJFlsSHRwFNXf8otK3RQ6AmRoxLdDdmQy0SLFqp8wPDbZWRM/exec';
+
+        async function kirimData(data, buttonElement) {
+            const originalText = buttonElement.innerText;
+            buttonElement.innerText = "Menyimpan...";
+            buttonElement.disabled = true;
+
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Menggunakan text/plain agar tidak terblokir CORS
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    alert('Berhasil: ' + result.message);
+                    buttonElement.form.reset();
+                } else {
+                    alert('Gagal: ' + result.message);
+                }
+            } catch (error) {
+                alert('Terjadi kesalahan jaringan.');
+            } finally {
+                buttonElement.innerText = originalText;
+                buttonElement.disabled = false;
+            }
+        }
+
+        document.getElementById('formBerita').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = {
+                action: 'input_berita',
+                judul: document.getElementById('judulBerita').value,
+                tanggal: document.getElementById('tanggalBerita').value,
+                gambar: document.getElementById('gambarBerita').value,
+                password: document.getElementById('passBerita').value
+            };
+            kirimData(data, e.target.querySelector('button'));
+        });
+
+        document.getElementById('formPengumuman').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = {
+                action: 'input_pengumuman',
+                teks: document.getElementById('teksPengumuman').value,
+                tanggal: document.getElementById('tanggalPengumuman').value,
+                password: document.getElementById('passPengumuman').value
+            };
+            kirimData(data, e.target.querySelector('button'));
+        });
+    </script>
+</body>
+</html>
