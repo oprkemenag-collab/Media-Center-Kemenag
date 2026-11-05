@@ -73,7 +73,8 @@
             try {
                 const response = await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Menggunakan text/plain agar tidak terblokir CORS
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    redirect: "follow", // PENTING: Tambahkan baris ini
                     body: JSON.stringify(data)
                 });
                 const result = await response.json();
@@ -85,7 +86,8 @@
                     alert('Gagal: ' + result.message);
                 }
             } catch (error) {
-                alert('Terjadi kesalahan jaringan.');
+                console.error("Detail error:", error);
+                alert('Terjadi kesalahan jaringan. Cek console browser (F12) untuk detailnya.');
             } finally {
                 buttonElement.innerText = originalText;
                 buttonElement.disabled = false;
