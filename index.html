@@ -97,7 +97,7 @@
                     </div>
                 </a>
 
-                <a href="s.id/PPIDKemenagPohuwato" class="bg-[#f3e8ff] rounded-2xl p-6 shadow-sm border border-purple-100 flex flex-col items-center text-center card-hover transition duration-300">
+                <a href="https://s.id/PPIDKemenagPohuwato" class="bg-[#f3e8ff] rounded-2xl p-6 shadow-sm border border-purple-100 flex flex-col items-center text-center card-hover transition duration-300">
                     <div class="text-6xl text-indigo-800 mb-4 relative mt-2">
                         <i class="fa-regular fa-file-lines"></i>
                     </div>
@@ -203,11 +203,14 @@
                     // 2. RENDER PENGUMUMAN (Dibatasi maksimal 5 Pengumuman)
                     if(data.pengumuman && data.pengumuman.length > 0) {
                         let htmlPengumuman = '';
-                        let teksMarquee = ''; // Variabel baru untuk teks berjalan
+                        
+                        // TAMBAHKAN TEKS PEMBUKA DI SINI
+                        let teksMarquee = 'Selamat Datang di Portal Media Center Kementerian Agama Kabupaten Pohuwato. Berikut adalah informasi dan pengumuman terbaru: \u00A0\u00A0\u00A0\u00A0\u00A0'; 
+                        
                         const pengumumanTerbaru = data.pengumuman.slice(0, 5);
 
                         pengumumanTerbaru.forEach(p => {
-                            // Membuat daftar pengumuman (yang sudah ada)
+                            // Membuat daftar pengumuman (yang di dalam kotak)
                             htmlPengumuman += `
                                 <li class="flex items-start gap-3 pb-3 border-b border-gray-50 last:border-0 last:pb-0">
                                     <div class="w-2 h-2 mt-2 rounded-full bg-[#1a5336] flex-shrink-0"></div>
@@ -218,12 +221,11 @@
                                 </li>
                             `;
                             
-                            // Menambahkan teks pengumuman ke dalam teks berjalan
+                            // Menambahkan teks pengumuman otomatis ke belakang teks pembuka
                             teksMarquee += ` ♦ [${formatTanggal(p.tanggal)}] ${p.teks} \u00A0\u00A0\u00A0\u00A0\u00A0 `;
                         });
                         
                         document.getElementById('pengumuman-container').innerHTML = htmlPengumuman;
-                        // Memasukkan teks yang sudah digabung ke marquee
                         document.getElementById('teks-marquee').innerText = teksMarquee; 
                         
                     } else {
