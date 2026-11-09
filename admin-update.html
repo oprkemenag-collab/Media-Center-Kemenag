@@ -65,18 +65,18 @@
         // MASUKKAN URL DEPLOYMENT APPS SCRIPT YANG BARU DI SINI
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyQNSOIB7Wz2CXhTahDvJFlsSHRwFNXf8otK3RQ6AmRoxLdDdmQy0SLFqp8wPDbZWRM/exec';
 
-        async function kirimData(data, buttonElement) {
+        async function kirimData(params, buttonElement) {
             const originalText = buttonElement.innerText;
             buttonElement.innerText = "Menyimpan...";
             buttonElement.disabled = true;
 
             try {
-                const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    redirect: "follow", // PENTING: Tambahkan baris ini
-                    body: JSON.stringify(data)
-                });
+                // Mengubah parameter JSON menjadi URL Query String
+                const queryString = new URLSearchParams(params).toString();
+                const urlDenganData = `${APPS_SCRIPT_URL}?${queryString}`;
+
+                // Menggunakan metode GET yang kebal CORS
+                const response = await fetch(urlDenganData);
                 const result = await response.json();
                 
                 if (result.status === 'success') {
@@ -86,8 +86,7 @@
                     alert('Gagal: ' + result.message);
                 }
             } catch (error) {
-                console.error("Detail error:", error);
-                alert('Terjadi kesalahan jaringan. Cek console browser (F12) untuk detailnya.');
+                alert('Terjadi kesalahan jaringan.');
             } finally {
                 buttonElement.innerText = originalText;
                 buttonElement.disabled = false;
