@@ -17,21 +17,40 @@
     </style>
 </head>
 <body>
-    <header class="bg-white px-8 py-3 flex justify-between items-center shadow-sm header-curve">
-        <div class="flex items-center gap-4">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Kementerian_Agama_new_logo.png" alt="Logo Kemenag" class="h-14">
-            <div>
-                <h1 class="text-3xl font-bold text-[#1a5336] leading-none">Media Center</h1>
-                <p class="text-gray-700 font-medium text-sm mt-1">Kementerian Agama Kabupaten Pohuwato</p>
+    <!-- PEMBUNGKUS STICKY (Header + Teks Berjalan) -->
+    <div class="sticky top-0 z-50 shadow-md">
+        
+        <!-- Topbar & Header -->
+        <header class="bg-white px-4 md:px-8 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Kementerian_Agama_new_logo.png" alt="Logo Kemenag" class="h-12 md:h-14">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-[#1a5336] leading-none">Media Center</h1>
+                    <p class="text-gray-700 font-medium text-xs md:text-sm mt-1">Kementerian Agama Kabupaten Pohuwato</p>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-5 text-sm text-gray-700">
+                <div class="flex items-center gap-2">
+                    <i class="fa-regular fa-calendar-days text-green-700"></i>
+                    <span id="current-date" class="font-medium"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Teks Berjalan (Marquee) -->
+        <div class="bg-[#1a5336] text-white flex items-stretch border-b-[3px] border-green-500">
+            <div class="px-4 py-2 bg-green-800 font-bold text-sm flex items-center whitespace-nowrap z-10 shadow-[4px_0_10px_rgba(0,0,0,0.3)]">
+                <i class="fa-solid fa-bullhorn text-yellow-400 mr-2"></i> Sekilas Info
+            </div>
+            <div class="flex-1 overflow-hidden flex items-center">
+                <!-- Jika cursor mouse diarahkan ke teks, teks akan berhenti -->
+                <marquee id="teks-marquee" class="text-sm font-medium pt-0.5" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();">
+                    Selamat Datang di Portal Media Center Kementerian Agama Kabupaten Pohuwato. Memuat informasi terkini...
+                </marquee>
             </div>
         </div>
-        <div class="hidden md:flex items-center gap-5 text-sm text-gray-700">
-            <div class="flex items-center gap-2">
-                <i class="fa-regular fa-calendar-days text-green-700"></i>
-                <span id="current-date" class="font-medium"></span>
-            </div>
-        </div>
-    </header>
+        
+    </div>
 
     <section class="w-full border-b-8 border-green-600 bg-white">
         <img src="banner.png" alt="Banner Media Center" class="w-full h-auto object-cover max-h-[500px]">
@@ -184,10 +203,11 @@
                     // 2. RENDER PENGUMUMAN (Dibatasi maksimal 5 Pengumuman)
                     if(data.pengumuman && data.pengumuman.length > 0) {
                         let htmlPengumuman = '';
-                        // Menggunakan .slice(0, 5) untuk mengambil 5 data pertama
+                        let teksMarquee = ''; // Variabel baru untuk teks berjalan
                         const pengumumanTerbaru = data.pengumuman.slice(0, 5);
 
                         pengumumanTerbaru.forEach(p => {
+                            // Membuat daftar pengumuman (yang sudah ada)
                             htmlPengumuman += `
                                 <li class="flex items-start gap-3 pb-3 border-b border-gray-50 last:border-0 last:pb-0">
                                     <div class="w-2 h-2 mt-2 rounded-full bg-[#1a5336] flex-shrink-0"></div>
@@ -197,10 +217,18 @@
                                     </div>
                                 </li>
                             `;
+                            
+                            // Menambahkan teks pengumuman ke dalam teks berjalan
+                            teksMarquee += ` ♦ [${formatTanggal(p.tanggal)}] ${p.teks} \u00A0\u00A0\u00A0\u00A0\u00A0 `;
                         });
+                        
                         document.getElementById('pengumuman-container').innerHTML = htmlPengumuman;
+                        // Memasukkan teks yang sudah digabung ke marquee
+                        document.getElementById('teks-marquee').innerText = teksMarquee; 
+                        
                     } else {
                         document.getElementById('pengumuman-container').innerHTML = '<p class="text-gray-500 text-sm p-2">Belum ada pengumuman.</p>';
+                        document.getElementById('teks-marquee').innerText = 'Selamat Datang di Portal Media Center Kementerian Agama Kabupaten Pohuwato.';
                     }
                 })
                 .catch(error => {
