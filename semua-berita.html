@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semua Berita - Media Center Kemenag</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; } .header-curve { border-bottom: 3px solid #16a34a; } </style>
+</head>
+<body>
+    <header class="bg-white px-8 py-4 flex justify-between items-center shadow-sm header-curve">
+        <div class="flex items-center gap-4">
+            <h1 class="text-2xl font-bold text-[#1a5336]">Arsip Berita</h1>
+        </div>
+        <a href="index.html" class="text-sm font-bold text-gray-600 hover:text-green-700 transition"><i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Beranda</a>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="bg-[#1a5336] text-white px-5 py-4">
+                <h3 class="font-bold text-lg"><i class="fa-solid fa-bullhorn mr-2"></i> Seluruh Berita Media Center</h3>
+            </div>
+            <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6" id="all-berita-container">
+                <p class="text-gray-500 animate-pulse">Memuat berita...</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // MASUKKAN URL APPS SCRIPT ANDA DISINI (SAMA SEPERTI DI INDEX.HTML)
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8Ewbw6oKHND33rqWpCweP0ptyAJAT-7RSX_a7s9cUrKqfy79BlWFgPXIqfDm5NKqS/exec';
+
+        function formatTanggal(tgl) {
+            try {
+                const d = new Date(tgl);
+                return isNaN(d) ? tgl : d.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+            } catch(e) { return tgl; }
+        }
+
+        fetch(APPS_SCRIPT_URL)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('all-berita-container');
+                if(data.berita && data.berita.length > 0) {
+                    let html = '';
+                    // Menampilkan SEMUA berita yang ada di Google Sheets
+                    data.berita.forEach(b => {
+                        html += `
+                            <a href="${b.url}" target="_blank" class="flex gap-4 items-start cursor-pointer group block bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-green-300 transition">
+                                <img src="${b.gambar}" alt="Berita" class="w-32 h-24 object-cover rounded-lg shadow-sm group-hover:opacity-90">
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-gray-800 text-[15px] leading-snug group-hover:text-[#1a5336] line-clamp-3">${b.judul}</h4>
+                                    <div class="flex items-center gap-2 mt-2 text-xs text-gray-500 font-medium">
+                                        <i class="fa-regular fa-calendar-days"></i>
+                                        <span>${formatTanggal(b.tanggal)}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                    });
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<p class="text-gray-500">Belum ada berita yang diterbitkan.</p>';
+                }
+            })
+            .catch(error => {
+                document.getElementById('all-berita-container').innerHTML = '<p class="text-red-500">Gagal terhubung ke server.</p>';
+            });
+    </script>
+</body>
+</html>
