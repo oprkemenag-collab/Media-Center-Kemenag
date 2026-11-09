@@ -42,12 +42,6 @@
                 <span id="current-date" class="font-medium"></span>
             </div>
             <div class="h-6 w-px bg-gray-300"></div>
-            <!--<a href="admin-update.html" class="flex items-center gap-2 cursor-pointer group hover:bg-gray-50 px-3 py-1.5 rounded-lg transition">
-                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-700 group-hover:bg-green-200 transition shadow-sm">
-                    <i class="fa-solid fa-user-gear"></i>
-                </div>
-                <span class="font-bold text-[#1a5336]">Menu Admin</span>
-            </a>-->
         </div>
     </header>
 
@@ -174,7 +168,7 @@
 
     <!-- Logika Aplikasi -->
     <script>
-        // URL WEB APP GOOGLE APPS SCRIPT
+        // MASUKKAN URL WEB APP YANG SAMA PERSIS DENGAN YANG ADA DI ADMIN-UPDATE.HTML
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyQNSOIB7Wz2CXhTahDvJFlsSHRwFNXf8otK3RQ6AmRoxLdDdmQy0SLFqp8wPDbZWRM/exec';
 
         // Set Tanggal Hari Ini di Header
@@ -182,7 +176,7 @@
         document.getElementById('current-date').innerText = new Date().toLocaleDateString('id-ID', dateOptions);
 
         // Render Data API
-        if(APPS_SCRIPT_URL) {
+        if(APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'PASTE_URL_WEB_APP_YANG_BARU_DI_SINI') {
             fetch(APPS_SCRIPT_URL)
                 .then(response => response.json())
                 .then(data => {
