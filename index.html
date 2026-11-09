@@ -47,7 +47,7 @@
 
     <!-- Hero Banner Section -->
     <section class="w-full border-b-8 border-green-600 bg-white">
-        <!-- Pastikan nama file gambar banner Anda adalah banner.png dan sudah di-upload ke GitHub -->
+        <!-- Pastikan file banner.png sudah ada di repositori GitHub yang sama -->
         <img src="banner.png" alt="Banner Media Center Kemenag Pohuwato" class="w-full h-auto object-cover max-h-[500px]">
     </section>
 
@@ -166,64 +166,68 @@
         <p class="font-medium text-gray-600">Kementerian Agama Kabupaten Pohuwato</p>
     </footer>
 
-    <!-- Logika Aplikasi -->
+    <!-- Logika Aplikasi JSONP -->
     <script>
-        // MASUKKAN URL WEB APP YANG SAMA PERSIS DENGAN YANG ADA DI ADMIN-UPDATE.HTML
+        // MASUKKAN URL DEPLOYMENT BARU ANDA DI SINI
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8Ewbw6oKHND33rqWpCweP0ptyAJAT-7RSX_a7s9cUrKqfy79BlWFgPXIqfDm5NKqS/exec';
 
         // Set Tanggal Hari Ini di Header
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('current-date').innerText = new Date().toLocaleDateString('id-ID', dateOptions);
 
-        // Render Data API
-        if(APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'PASTE_URL_WEB_APP_YANG_BARU_DI_SINI') {
-            fetch(APPS_SCRIPT_URL)
-                .then(response => response.json())
-                .then(data => {
-                    
-                    // 1. Render Berita Terbaru
-                    if(data.berita && data.berita.length > 0) {
-                        const b = data.berita[0];
-                        document.getElementById('berita-container').innerHTML = `
-                            <div class="flex gap-5 items-start cursor-pointer group">
-                                <img src="${b.gambar}" alt="Berita" class="w-40 h-28 object-cover rounded-xl shadow-sm border border-gray-100 group-hover:opacity-90 transition">
-                                <div class="flex-1">
-                                    <h4 class="font-bold text-gray-800 text-lg leading-snug group-hover:text-[#1a5336] transition line-clamp-2">${b.judul}</h4>
-                                    <div class="flex items-center gap-2 mt-3 text-sm text-gray-500 font-medium">
-                                        <i class="fa-regular fa-calendar-days"></i>
-                                        <span>${b.tanggal}</span>
-                                    </div>
-                                </div>
+        // FUNGSI CALLBACK JSONP (Otomatis dipanggil oleh Apps Script)
+        function renderData(data) {
+            // 1. Render Berita
+            if(data.berita && data.berita.length > 0) {
+                const b = data.berita[0]; // Menampilkan 1 berita terbaru
+                document.getElementById('berita-container').innerHTML = `
+                    <div class="flex gap-5 items-start cursor-pointer group">
+                        <img src="${b.gambar}" alt="Berita" class="w-40 h-28 object-cover rounded-xl shadow-sm border border-gray-100 group-hover:opacity-90 transition">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800 text-lg leading-snug group-hover:text-[#1a5336] transition line-clamp-2">${b.judul}</h4>
+                            <div class="flex items-center gap-2 mt-3 text-sm text-gray-500 font-medium">
+                                <i class="fa-regular fa-calendar-days"></i>
+                                <span>${b.tanggal}</span>
                             </div>
-                        `;
-                    } else {
-                        document.getElementById('berita-container').innerHTML = '<p class="text-gray-500 text-sm p-2">Belum ada berita terbaru.</p>';
-                    }
+                        </div>
+                    </div>
+                `;
+            } else {
+                document.getElementById('berita-container').innerHTML = '<p class="text-gray-500 text-sm p-2">Belum ada berita terbaru.</p>';
+            }
 
-                    // 2. Render Pengumuman
-                    if(data.pengumuman && data.pengumuman.length > 0) {
-                        let htmlPengumuman = '';
-                        data.pengumuman.forEach(p => {
-                            htmlPengumuman += `
-                                <li class="flex items-start gap-3 pb-3 border-b border-gray-50 last:border-0 last:pb-0">
-                                    <div class="w-2 h-2 mt-2 rounded-full bg-[#1a5336] flex-shrink-0"></div>
-                                    <div>
-                                        <p class="text-gray-900 font-semibold text-[15px] leading-snug">${p.teks}</p>
-                                        <p class="text-sm text-gray-500 mt-1 font-medium">${p.tanggal}</p>
-                                    </div>
-                                </li>
-                            `;
-                        });
-                        document.getElementById('pengumuman-container').innerHTML = htmlPengumuman;
-                    } else {
-                        document.getElementById('pengumuman-container').innerHTML = '<p class="text-gray-500 text-sm p-2">Belum ada pengumuman.</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error memuat data:', error);
-                    document.getElementById('berita-container').innerHTML = '<p class="text-red-500 text-sm p-2">Gagal terhubung ke server. Pastikan URL Apps Script sudah benar dan memiliki akses publik.</p>';
-                    document.getElementById('pengumuman-container').innerHTML = '<p class="text-red-500 text-sm p-2">Gagal memuat pengumuman.</p>';
+            // 2. Render Pengumuman
+            if(data.pengumuman && data.pengumuman.length > 0) {
+                let htmlPengumuman = '';
+                data.pengumuman.forEach(p => {
+                    htmlPengumuman += `
+                        <li class="flex items-start gap-3 pb-3 border-b border-gray-50 last:border-0 last:pb-0">
+                            <div class="w-2 h-2 mt-2 rounded-full bg-[#1a5336] flex-shrink-0"></div>
+                            <div>
+                                <p class="text-gray-900 font-semibold text-[15px] leading-snug">${p.teks}</p>
+                                <p class="text-sm text-gray-500 mt-1 font-medium">${p.tanggal}</p>
+                            </div>
+                        </li>
+                    `;
                 });
+                document.getElementById('pengumuman-container').innerHTML = htmlPengumuman;
+            } else {
+                document.getElementById('pengumuman-container').innerHTML = '<p class="text-gray-500 text-sm p-2">Belum ada pengumuman.</p>';
+            }
+        }
+
+        // METODE INJEKSI SCRIPT (KEBAL CORS ERROR)
+        if(APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbx8Ewbw6oKHND33rqWpCweP0ptyAJAT-7RSX_a7s9cUrKqfy79BlWFgPXIqfDm5NKqS/exec') {
+            const scriptElement = document.createElement('script');
+            // Menambahkan parameter callback ke URL agar backend mengirim JSONP
+            scriptElement.src = APPS_SCRIPT_URL + '?callback=renderData';
+            document.body.appendChild(scriptElement);
+            
+            // Penanganan jika link salah/gagal dimuat
+            scriptElement.onerror = function() {
+                document.getElementById('berita-container').innerHTML = '<p class="text-red-500 text-sm p-2">Gagal terhubung ke server.</p>';
+                document.getElementById('pengumuman-container').innerHTML = '<p class="text-red-500 text-sm p-2">Gagal memuat pengumuman.</p>';
+            };
         }
     </script>
 </body>
