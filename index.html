@@ -95,7 +95,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
                 <div class="bg-[#1a5336] text-white px-5 py-3.5 flex justify-between items-center">
                     <h3 class="font-bold text-lg"><i class="fa-solid fa-bullhorn mr-2"></i> Berita Terbaru</h3>
-                    <a href="#" class="text-sm font-medium hover:text-green-200 transition flex items-center">Lihat Semua <i class="fa-solid fa-arrow-right ml-1.5"></i></a>
+                    <a href="semua-berita.html" class="text-sm font-medium hover:text-green-200 transition flex items-center">Lihat Semua <i class="fa-solid fa-arrow-right ml-1.5"></i></a>
                 </div>
                 <div class="p-5" id="berita-container">
                     <div class="animate-pulse flex gap-4">
@@ -111,7 +111,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
                 <div class="bg-[#1a5336] text-white px-5 py-3.5 flex justify-between items-center">
                     <h3 class="font-bold text-lg"><i class="fa-solid fa-bell mr-2"></i> Pengumuman</h3>
-                    <a href="#" class="text-sm font-medium hover:text-green-200 transition flex items-center">Lihat Semua <i class="fa-solid fa-arrow-right ml-1.5"></i></a>
+                    <a href="semua-pengumuman.html" class="text-sm font-medium hover:text-green-200 transition flex items-center">Lihat Semua <i class="fa-solid fa-arrow-right ml-1.5"></i></a>
                 </div>
                 <div class="p-5">
                     <ul class="space-y-4" id="pengumuman-container">
@@ -166,9 +166,9 @@
                             htmlBerita += `
                                 <a href="${b.url}" target="_blank" class="flex gap-5 items-start cursor-pointer group block mb-5 border-b border-gray-100 pb-5 last:border-0 last:pb-0 last:mb-0">
                                     <img src="${b.gambar}" alt="Berita" class="w-40 h-28 object-cover rounded-xl shadow-sm border border-gray-100 group-hover:opacity-90 transition">
-                                    <div class="flex-1">
-                                        <h4 class="font-bold text-gray-800 text-lg leading-snug group-hover:text-[#1a5336] transition line-clamp-2">${b.judul}</h4>
-                                        <div class="flex items-center gap-2 mt-3 text-sm text-gray-500 font-medium">
+                                    <div class="flex-1 pr-4"> <!-- Tambahan pr-4 agar teks tidak mepet kanan -->
+                                        <h4 class="font-bold text-gray-800 text-[15px] leading-snug group-hover:text-[#1a5336] transition line-clamp-3">${b.judul}</h4> <!-- line-clamp-3 untuk maksimal 3 baris -->
+                                        <div class="flex items-center gap-2 mt-3 text-xs text-gray-500 font-medium">
                                             <i class="fa-regular fa-calendar-days"></i>
                                             <span>${formatTanggal(b.tanggal)}</span>
                                         </div>
