@@ -26,11 +26,15 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Tanggal</label>
-                    <input type="text" id="tanggalBerita" placeholder="Contoh: 30 Okt 2025" required class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                    <input type="text" id="tanggalBerita" placeholder="Contoh: 30 Okt 2026" required class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">URL Gambar</label>
-                    <input type="url" id="gambarBerita" placeholder="https://link-gambar.com/foto.jpg" required class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700">URL Foto/Gambar</label>
+                    <input type="url" id="gambarBerita" placeholder="Link gambar (.jpg/.png)" required class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-blue-700">URL Artikel Berita (Untuk Dibaca Lengkap)</label>
+                    <input type="url" id="urlBerita" placeholder="https://kemenag.go.id/..." required class="mt-1 w-full p-2 border border-blue-300 rounded-lg">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-red-600">Password Admin</label>
@@ -50,7 +54,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Tanggal</label>
-                    <input type="text" id="tanggalPengumuman" placeholder="Contoh: 30 Okt 2025" required class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                    <input type="text" id="tanggalPengumuman" placeholder="Contoh: 30 Okt 2026" required class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-red-600">Password Admin</label>
@@ -61,7 +65,6 @@
         </div>
     </div>
 
-    <!-- Logika Aplikasi (GET Method) -->
     <script>
         // GANTI DENGAN URL DEPLOYMENT APPS SCRIPT YANG SAMA DENGAN INDEX.HTML
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8Ewbw6oKHND33rqWpCweP0ptyAJAT-7RSX_a7s9cUrKqfy79BlWFgPXIqfDm5NKqS/exec';
@@ -72,11 +75,9 @@
             buttonElement.disabled = true;
 
             try {
-                // Mengubah data JSON menjadi URL Query Parameter agar kebal CORS
                 const queryString = new URLSearchParams(params).toString();
                 const urlDenganData = `${APPS_SCRIPT_URL}?${queryString}`;
 
-                // Kirim request GET
                 const response = await fetch(urlDenganData);
                 const result = await response.json();
                 
@@ -87,7 +88,6 @@
                     alert('Gagal: ' + result.message);
                 }
             } catch (error) {
-                console.error(error);
                 alert('Terjadi kesalahan jaringan.');
             } finally {
                 buttonElement.innerText = originalText;
@@ -102,6 +102,7 @@
                 judul: document.getElementById('judulBerita').value,
                 tanggal: document.getElementById('tanggalBerita').value,
                 gambar: document.getElementById('gambarBerita').value,
+                url: document.getElementById('urlBerita').value,
                 password: document.getElementById('passBerita').value
             };
             kirimData(data, e.target.querySelector('button'));
