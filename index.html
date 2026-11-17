@@ -15,7 +15,11 @@
         .kemenag-green { background-color: #0b5c32; }
         .kemenag-text { color: #0b5c32; }
         .kemenag-yellow { background-color: #ffc107; }
-        .hero-gradient { background: linear-gradient(105deg, #0b5c32 45%, rgba(11, 92, 50, 0.8) 60%, rgba(0,0,0,0) 100%); }
+        .hero-gradient { background: linear-gradient(105deg, #0b5c32 45%, rgba(11, 92, 50, 0.8) 70%, rgba(0,0,0,0) 100%); }
+        /* Gradient khusus HP agar teks lebih terbaca */
+        @media (max-width: 768px) {
+            .hero-gradient { background: linear-gradient(to top, rgba(11, 92, 50, 0.95) 10%, rgba(11, 92, 50, 0.6) 60%, rgba(0,0,0,0.2) 100%); }
+        }
         .card-hover:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: #0b5c32; }
     </style>
 </head>
@@ -25,11 +29,18 @@
     <div class="sticky top-0 z-50">
         <!-- Navbar Utama -->
         <header class="bg-white px-4 lg:px-12 py-3 flex flex-wrap justify-between items-center shadow-sm">
-            <div class="flex items-center gap-4">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Kementerian_Agama_new_logo.png" alt="Logo Kemenag" class="h-12 md:h-14">
+            <div class="flex items-center gap-3 sm:gap-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Kementerian_Agama_new_logo.png" alt="Logo Kemenag" class="h-10 sm:h-12 md:h-14">
+                
+                <!-- Tampil Khusus HP -->
+                <div class="block sm:hidden">
+                    <h1 class="text-[15px] font-bold text-gray-900 leading-tight">Kemenag<br>Pohuwato</h1>
+                </div>
+                <!-- Tampil Komputer/Tablet -->
                 <div class="hidden sm:block">
                     <h1 class="text-[17px] font-bold text-gray-900 leading-tight">Kantor Kementerian Agama<br>Kabupaten Pohuwato</h1>
                 </div>
+
                 <div class="hidden md:block h-10 w-px bg-gray-300 mx-2"></div>
                 <div class="hidden lg:flex items-center gap-2">
                     <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-700">
@@ -53,11 +64,11 @@
 
         <!-- Teks Berjalan (Marquee) -->
         <div class="kemenag-green text-white flex items-stretch border-b-2 border-yellow-400">
-            <div class="px-4 py-1.5 bg-green-900 font-bold text-xs md:text-sm flex items-center whitespace-nowrap z-10 shadow-[4px_0_10px_rgba(0,0,0,0.2)]">
-                <i class="fa-solid fa-bullhorn text-yellow-400 mr-2"></i> Sekilas Info
+            <div class="px-3 sm:px-4 py-1.5 bg-green-900 font-bold text-[11px] sm:text-sm flex items-center whitespace-nowrap z-10 shadow-[4px_0_10px_rgba(0,0,0,0.2)]">
+                <i class="fa-solid fa-bullhorn text-yellow-400 mr-1.5 sm:mr-2"></i> Sekilas Info
             </div>
             <div class="flex-1 overflow-hidden flex items-center">
-                <marquee id="teks-marquee" class="text-xs md:text-sm font-medium pt-0.5" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+                <marquee id="teks-marquee" class="text-[11px] sm:text-sm font-medium pt-0.5 sm:pt-0" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
                     Memuat informasi...
                 </marquee>
             </div>
@@ -65,156 +76,156 @@
     </div>
 
     <!-- HERO SECTION -->
-    <!-- PERUBAHAN 1: Mengurangi tinggi area Hero Section -->
-    <section class="relative w-full h-[300px] md:h-[350px] bg-cover bg-center" style="background-image: url('banner.png');">
+    <!-- h-auto & min-h untuk adaptasi jika teks membungkuk di HP -->
+    <section class="relative w-full min-h-[350px] md:min-h-0 md:h-[350px] bg-cover bg-center flex items-end md:items-center pb-8 md:pb-0" style="background-image: url('banner.png');">
         <div class="absolute inset-0 hero-gradient"></div>
-        <div class="relative z-10 h-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col justify-center w-full md:w-2/3 lg:w-1/2">
-            <div class="inline-block kemenag-yellow text-green-900 font-extrabold px-4 py-1 rounded-full text-sm mb-4 w-max">
+        <div class="relative z-10 h-full max-w-7xl mx-auto px-5 lg:px-12 flex flex-col justify-center md:justify-center w-full md:w-2/3 lg:w-1/2 pt-12 md:pt-0">
+            <div class="inline-block kemenag-yellow text-green-900 font-extrabold px-3 py-1 rounded-full text-xs sm:text-sm mb-3 w-max">
                 Layanan Terpadu
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight shadow-sm">Kemenag Pohuwato</h1>
-            <!-- PERUBAHAN 2: Mengurangi margin bawah dari mb-8 menjadi mb-5 -->
-            <p class="text-white text-base md:text-lg mb-5 font-medium leading-relaxed opacity-95">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-2 md:mb-4 leading-tight shadow-sm">Kemenag Pohuwato</h1>
+            <p class="text-white text-sm md:text-lg mb-6 font-medium leading-relaxed opacity-95">
                 Akses layanan, informasi, dan unit kerja Kemenag Kabupaten Pohuwato serta satuan kerja di bawah naungannya.
             </p>
-            <div class="flex flex-wrap gap-4">
-                <a href="#" class="bg-white kemenag-text font-bold px-6 py-2.5 rounded-full flex items-center gap-2 hover:bg-gray-100 transition shadow-lg">
+            <div class="flex flex-wrap gap-3 sm:gap-4">
+                <a href="#" class="bg-white kemenag-text font-bold px-4 sm:px-6 py-2 sm:py-2.5 rounded-full flex items-center gap-2 hover:bg-gray-100 transition shadow-lg text-sm sm:text-base">
                     <i class="fa-solid fa-table-cells-large text-green-600"></i> Lihat Layanan
                 </a>
-                <a href="#" class="bg-transparent border-2 border-white text-white font-bold px-6 py-2.5 rounded-full flex items-center gap-2 hover:bg-white hover:text-green-800 transition shadow-lg">
+                <a href="#" class="bg-transparent border-2 border-white text-white font-bold px-4 sm:px-6 py-2 sm:py-2.5 rounded-full flex items-center gap-2 hover:bg-white hover:text-green-800 transition shadow-lg text-sm sm:text-base">
                     <i class="fa-solid fa-circle-info"></i> Profil Kemenag
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- PERUBAHAN 3: Mengurangi padding vertikal atas dari py-10 menjadi pt-6 pb-10 -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-6 pb-10">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-8 pb-10">
         
         <!-- SECTION: LAYANAN UNGGULAN -->
-        <div class="mb-14">
-            <div class="flex items-center justify-center gap-4 mb-8">
-                <div class="h-0.5 w-12 bg-green-700"></div>
-                <h2 class="text-2xl font-extrabold text-gray-900 text-center">Layanan Unggulan</h2>
-                <div class="h-0.5 w-12 bg-green-700"></div>
+        <div class="mb-10 sm:mb-14">
+            <div class="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+                <div class="h-0.5 w-8 sm:w-12 bg-green-700"></div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 text-center">Layanan Unggulan</h2>
+                <div class="h-0.5 w-8 sm:w-12 bg-green-700"></div>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <a href="#" class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
-                    <div class="text-4xl text-green-600 mb-3"><i class="fa-solid fa-headset"></i></div>
-                    <h3 class="font-bold text-sm text-gray-900">PTSP Online</h3>
-                    <p class="text-[11px] text-gray-500 mt-1 leading-tight">Permohonan layanan Kemenag</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+                <!-- Padding dan Icon disesuaikan (p-3 untuk hp, p-5 untuk komputer) -->
+                <a href="#" class="bg-white rounded-2xl p-3 sm:p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
+                    <div class="text-3xl sm:text-4xl text-green-600 mb-2 sm:mb-3"><i class="fa-solid fa-headset"></i></div>
+                    <h3 class="font-bold text-[13px] sm:text-sm text-gray-900 leading-tight">PTSP Online</h3>
+                    <p class="text-[10px] sm:text-[11px] text-gray-500 mt-1 sm:mt-1.5 leading-tight">Permohonan layanan</p>
                 </a>
-                <a href="#" class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
-                    <div class="text-4xl text-green-600 mb-3 relative">
+                <a href="#" class="bg-white rounded-2xl p-3 sm:p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
+                    <div class="text-3xl sm:text-4xl text-green-600 mb-2 sm:mb-3 relative">
                         <i class="fa-solid fa-file-lines"></i>
-                        <div class="absolute bottom-0 -right-1 bg-yellow-400 w-3 h-3 rounded-full border-2 border-white"></div>
+                        <div class="absolute bottom-0 -right-1 bg-yellow-400 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border-2 border-white"></div>
                     </div>
-                    <h3 class="font-bold text-sm text-gray-900">Tata Persuratan</h3>
-                    <p class="text-[11px] text-gray-500 mt-1 leading-tight">Surat Masuk, Keluar & Disposisi</p>
+                    <h3 class="font-bold text-[13px] sm:text-sm text-gray-900 leading-tight">Tata Persuratan</h3>
+                    <p class="text-[10px] sm:text-[11px] text-gray-500 mt-1 sm:mt-1.5 leading-tight">Surat & Disposisi</p>
                 </a>
-                <a href="#" class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
-                    <div class="text-4xl text-green-600 mb-3"><i class="fa-solid fa-circle-info"></i></div>
-                    <h3 class="font-bold text-sm text-gray-900">PPID</h3>
-                    <p class="text-[11px] text-gray-500 mt-1 leading-tight">Informasi Publik Kemenag</p>
+                <a href="#" class="bg-white rounded-2xl p-3 sm:p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
+                    <div class="text-3xl sm:text-4xl text-green-600 mb-2 sm:mb-3"><i class="fa-solid fa-circle-info"></i></div>
+                    <h3 class="font-bold text-[13px] sm:text-sm text-gray-900 leading-tight">PPID</h3>
+                    <p class="text-[10px] sm:text-[11px] text-gray-500 mt-1 sm:mt-1.5 leading-tight">Informasi Publik</p>
                 </a>
-                <a href="#" class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
-                    <div class="text-4xl text-green-600 mb-3 relative">
+                <a href="#" class="bg-white rounded-2xl p-3 sm:p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
+                    <div class="text-3xl sm:text-4xl text-green-600 mb-2 sm:mb-3 relative">
                         <i class="fa-solid fa-bullhorn"></i>
-                        <i class="fa-solid fa-bolt absolute -top-1 -right-2 text-sm text-yellow-400"></i>
+                        <i class="fa-solid fa-bolt absolute -top-1 -right-2 text-[10px] sm:text-sm text-yellow-400"></i>
                     </div>
-                    <h3 class="font-bold text-sm text-gray-900">Pengaduan</h3>
-                    <p class="text-[11px] text-gray-500 mt-1 leading-tight">Aspirasi & Pengaduan</p>
+                    <h3 class="font-bold text-[13px] sm:text-sm text-gray-900 leading-tight">Pengaduan</h3>
+                    <p class="text-[10px] sm:text-[11px] text-gray-500 mt-1 sm:mt-1.5 leading-tight">Aspirasi Masyarakat</p>
                 </a>
-                <a href="#" class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
-                    <div class="text-4xl text-green-600 mb-3"><i class="fa-solid fa-chart-column"></i></div>
-                    <h3 class="font-bold text-sm text-gray-900">Survei Layanan</h3>
-                    <p class="text-[11px] text-gray-500 mt-1 leading-tight">Penilaian Kepuasan</p>
+                <a href="#" class="bg-white rounded-2xl p-3 sm:p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
+                    <div class="text-3xl sm:text-4xl text-green-600 mb-2 sm:mb-3"><i class="fa-solid fa-chart-column"></i></div>
+                    <h3 class="font-bold text-[13px] sm:text-sm text-gray-900 leading-tight">Survei Layanan</h3>
+                    <p class="text-[10px] sm:text-[11px] text-gray-500 mt-1 sm:mt-1.5 leading-tight">Penilaian Kepuasan</p>
                 </a>
-                <a href="#" class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
-                    <div class="text-4xl text-green-600 mb-3"><i class="fa-solid fa-download"></i></div>
-                    <h3 class="font-bold text-sm text-gray-900">Unduhan</h3>
-                    <p class="text-[11px] text-gray-500 mt-1 leading-tight">Formulir & Dokumen</p>
+                <a href="#" class="bg-white rounded-2xl p-3 sm:p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover transition duration-300">
+                    <div class="text-3xl sm:text-4xl text-green-600 mb-2 sm:mb-3"><i class="fa-solid fa-download"></i></div>
+                    <h3 class="font-bold text-[13px] sm:text-sm text-gray-900 leading-tight">Unduhan</h3>
+                    <p class="text-[10px] sm:text-[11px] text-gray-500 mt-1 sm:mt-1.5 leading-tight">Formulir & Dokumen</p>
                 </a>
             </div>
         </div>
 
         <!-- SECTION: SATUAN KERJA -->
-        <div class="mb-14">
-            <div class="flex justify-between items-end mb-6 border-b border-gray-200 pb-2">
+        <div class="mb-10 sm:mb-14">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 mb-5 sm:mb-6 border-b border-gray-200 pb-2">
                 <div class="flex items-center gap-3">
-                    <div class="w-1.5 h-6 kemenag-green rounded-full"></div>
-                    <h2 class="text-xl font-bold text-gray-900">Satuan Kerja / Unit di Bawah Naungan</h2>
+                    <div class="w-1.5 h-5 sm:h-6 kemenag-green rounded-full"></div>
+                    <h2 class="text-lg sm:text-xl font-bold text-gray-900">Satuan Kerja / Unit Naungan</h2>
                 </div>
-                <a href="#" class="text-sm font-bold kemenag-text hover:text-green-800 transition flex items-center">Lihat Semua <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                <a href="#" class="text-xs sm:text-sm font-bold kemenag-text hover:text-green-800 transition flex items-center pl-4 sm:pl-0">Lihat Semua <i class="fa-solid fa-arrow-right ml-1"></i></a>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <a href="#" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center gap-4 card-hover transition duration-300">
-                    <div class="text-3xl text-green-700 w-12 text-center"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                <a href="#" class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-gray-100 flex items-center gap-3 sm:gap-4 card-hover transition duration-300">
+                    <div class="text-2xl sm:text-3xl text-green-700 w-10 sm:w-12 text-center"><i class="fa-solid fa-graduation-cap"></i></div>
                     <div>
-                        <h3 class="font-bold text-[15px] text-gray-900">Madrasah</h3>
-                        <p class="text-xs text-gray-500">(Negeri & Swasta)</p>
+                        <h3 class="font-bold text-[14px] sm:text-[15px] text-gray-900 leading-tight">Madrasah</h3>
+                        <p class="text-[11px] sm:text-xs text-gray-500">(Negeri & Swasta)</p>
                     </div>
                 </a>
-                <a href="#" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center gap-4 card-hover transition duration-300">
-                    <div class="text-3xl text-green-700 w-12 text-center"><i class="fa-solid fa-book-open"></i></div>
+                <a href="#" class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-gray-100 flex items-center gap-3 sm:gap-4 card-hover transition duration-300">
+                    <div class="text-2xl sm:text-3xl text-green-700 w-10 sm:w-12 text-center"><i class="fa-solid fa-book-open"></i></div>
                     <div>
-                        <h3 class="font-bold text-[15px] text-gray-900">KUA</h3>
-                        <p class="text-xs text-gray-500">Kecamatan</p>
+                        <h3 class="font-bold text-[14px] sm:text-[15px] text-gray-900 leading-tight">KUA</h3>
+                        <p class="text-[11px] sm:text-xs text-gray-500">Kecamatan</p>
                     </div>
                 </a>
-                <a href="#" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center gap-4 card-hover transition duration-300">
-                    <div class="text-3xl text-green-700 w-12 text-center"><i class="fa-solid fa-book"></i></div>
+                <a href="#" class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-gray-100 flex items-center gap-3 sm:gap-4 card-hover transition duration-300">
+                    <div class="text-2xl sm:text-3xl text-green-700 w-10 sm:w-12 text-center"><i class="fa-solid fa-book"></i></div>
                     <div>
-                        <h3 class="font-bold text-[15px] text-gray-900">Pondok</h3>
-                        <p class="text-xs text-gray-500">Pesantren</p>
+                        <h3 class="font-bold text-[14px] sm:text-[15px] text-gray-900 leading-tight">Pondok</h3>
+                        <p class="text-[11px] sm:text-xs text-gray-500">Pesantren</p>
                     </div>
                 </a>
-                <a href="#" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center gap-4 card-hover transition duration-300">
-                    <div class="text-3xl text-green-700 w-12 text-center"><i class="fa-solid fa-users"></i></div>
+                <a href="#" class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-gray-100 flex items-center gap-3 sm:gap-4 card-hover transition duration-300">
+                    <div class="text-2xl sm:text-3xl text-green-700 w-10 sm:w-12 text-center"><i class="fa-solid fa-users"></i></div>
                     <div>
-                        <h3 class="font-bold text-[15px] text-gray-900">Kelompok</h3>
-                        <p class="text-xs text-gray-500">Kerja Penyuluh</p>
+                        <h3 class="font-bold text-[14px] sm:text-[15px] text-gray-900 leading-tight">Kelompok</h3>
+                        <p class="text-[11px] sm:text-xs text-gray-500">Kerja Penyuluh</p>
                     </div>
                 </a>
-                <a href="#" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center gap-4 card-hover transition duration-300">
-                    <div class="text-3xl text-green-700 w-12 text-center"><i class="fa-solid fa-mosque"></i></div>
+                <a href="#" class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-gray-100 flex items-center gap-3 sm:gap-4 card-hover transition duration-300">
+                    <div class="text-2xl sm:text-3xl text-green-700 w-10 sm:w-12 text-center"><i class="fa-solid fa-mosque"></i></div>
                     <div>
-                        <h3 class="font-bold text-[15px] text-gray-900">Majelis</h3>
-                        <p class="text-xs text-gray-500">Taklim</p>
+                        <h3 class="font-bold text-[14px] sm:text-[15px] text-gray-900 leading-tight">Majelis</h3>
+                        <p class="text-[11px] sm:text-xs text-gray-500">Taklim</p>
                     </div>
                 </a>
-                <a href="#" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center gap-4 card-hover transition duration-300">
-                    <div class="text-3xl text-green-700 w-12 text-center"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                <a href="#" class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-gray-100 flex items-center gap-3 sm:gap-4 card-hover transition duration-300">
+                    <div class="text-2xl sm:text-3xl text-green-700 w-10 sm:w-12 text-center"><i class="fa-solid fa-hand-holding-heart"></i></div>
                     <div>
-                        <h3 class="font-bold text-[15px] text-gray-900">Zakat & Wakaf</h3>
-                        <p class="text-xs text-gray-500">(BAZNAS/UPZ)</p>
+                        <h3 class="font-bold text-[14px] sm:text-[15px] text-gray-900 leading-tight">Zakat & Wakaf</h3>
+                        <p class="text-[11px] sm:text-xs text-gray-500">(BAZNAS/UPZ)</p>
                     </div>
                 </a>
             </div>
         </div>
 
-        <!-- SECTION: BERITA & PENGUMUMAN (Dari Sistem Sebelumnya) -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- SECTION: BERITA & PENGUMUMAN -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="kemenag-green text-white px-5 py-3.5 flex justify-between items-center border-b-4 border-yellow-400">
-                    <h3 class="font-bold text-lg"><i class="fa-solid fa-newspaper mr-2"></i> Berita Terbaru</h3>
-                    <a href="semua-berita.html" class="text-sm font-medium hover:text-yellow-300 transition flex items-center">Lihat Semua <i class="fa-solid fa-arrow-right ml-1.5"></i></a>
+                <div class="kemenag-green text-white px-4 sm:px-5 py-3 sm:py-3.5 flex justify-between items-center border-b-4 border-yellow-400">
+                    <h3 class="font-bold text-base sm:text-lg"><i class="fa-solid fa-newspaper mr-1.5 sm:mr-2"></i> Berita Terbaru</h3>
+                    <a href="semua-berita.html" class="text-xs sm:text-sm font-medium hover:text-yellow-300 transition flex items-center">Lihat Semua <i class="fa-solid fa-arrow-right ml-1.5"></i></a>
                 </div>
-                <div class="p-6" id="berita-container">
-                    <p class="text-gray-500 animate-pulse text-sm">Memuat berita...</p>
+                <!-- px disesuaikan untuk HP -->
+                <div class="p-4 sm:p-6" id="berita-container">
+                    <p class="text-gray-500 animate-pulse text-xs sm:text-sm">Memuat berita...</p>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="kemenag-green text-white px-5 py-3.5 flex justify-between items-center border-b-4 border-yellow-400">
-                    <h3 class="font-bold text-lg"><i class="fa-solid fa-bell mr-2"></i> Pengumuman</h3>
-                    <a href="semua-pengumuman.html" class="text-sm font-medium hover:text-yellow-300 transition flex items-center">Lihat Semua <i class="fa-solid fa-arrow-right ml-1.5"></i></a>
+                <div class="kemenag-green text-white px-4 sm:px-5 py-3 sm:py-3.5 flex justify-between items-center border-b-4 border-yellow-400">
+                    <h3 class="font-bold text-base sm:text-lg"><i class="fa-solid fa-bell mr-1.5 sm:mr-2"></i> Pengumuman</h3>
+                    <a href="semua-pengumuman.html" class="text-xs sm:text-sm font-medium hover:text-yellow-300 transition flex items-center">Lihat Semua <i class="fa-solid fa-arrow-right ml-1.5"></i></a>
                 </div>
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     <ul class="space-y-0" id="pengumuman-container">
-                        <p class="text-gray-500 animate-pulse text-sm">Memuat pengumuman...</p>
+                        <p class="text-gray-500 animate-pulse text-xs sm:text-sm">Memuat pengumuman...</p>
                     </ul>
                 </div>
             </div>
@@ -223,28 +234,28 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="kemenag-green text-white mt-10 border-t-4 border-yellow-400">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-10 flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
-            <div class="flex items-center gap-4">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Kementerian_Agama_new_logo.png" alt="Logo Kemenag" class="h-14">
+    <footer class="kemenag-green text-white mt-8 sm:mt-10 border-t-4 border-yellow-400">
+        <div class="max-w-7xl mx-auto px-5 lg:px-12 py-8 sm:py-10 flex flex-col md:flex-row justify-between items-center md:items-start gap-6 sm:gap-8 text-center md:text-left">
+            <div class="flex flex-col md:flex-row items-center gap-3 sm:gap-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Kementerian_Agama_new_logo.png" alt="Logo Kemenag" class="h-12 sm:h-14">
                 <div>
-                    <h3 class="font-bold text-lg leading-tight">Kantor Kementerian Agama<br>Kabupaten Pohuwato</h3>
+                    <h3 class="font-bold text-base sm:text-lg leading-tight">Kantor Kementerian Agama<br>Kabupaten Pohuwato</h3>
                 </div>
             </div>
             
-            <div class="flex flex-col sm:flex-row gap-6 text-sm font-medium opacity-90">
-                <div class="flex items-start gap-3">
-                    <i class="fa-solid fa-location-dot text-yellow-400 mt-1 text-lg"></i>
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-xs sm:text-sm font-medium opacity-90">
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left">
+                    <i class="fa-solid fa-location-dot text-yellow-400 mt-0 sm:mt-1 text-base sm:text-lg"></i>
                     <p>Jl. Trans Sulawesi, Kec. Marisa<br>Kab. Pohuwato, Gorontalo</p>
                 </div>
                 <div class="hidden sm:block w-px h-10 bg-green-700"></div>
-                <div class="flex flex-col gap-2">
-                    <a href="#" class="flex items-center gap-3 hover:text-yellow-300 transition"><i class="fa-solid fa-envelope text-yellow-400 text-lg"></i> pohuwato@kemenag.go.id</a>
-                    <a href="#" class="flex items-center gap-3 hover:text-yellow-300 transition"><i class="fa-solid fa-globe text-yellow-400 text-lg"></i> pohuwato.kemenag.go.id</a>
+                <div class="flex flex-col gap-1.5 sm:gap-2">
+                    <a href="#" class="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 hover:text-yellow-300 transition"><i class="fa-solid fa-envelope text-yellow-400 text-base sm:text-lg"></i> pohuwato@kemenag.go.id</a>
+                    <a href="#" class="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 hover:text-yellow-300 transition"><i class="fa-solid fa-globe text-yellow-400 text-base sm:text-lg"></i> pohuwato.kemenag.go.id</a>
                 </div>
             </div>
 
-            <div class="flex gap-4 text-2xl">
+            <div class="flex gap-5 sm:gap-4 text-xl sm:text-2xl mt-2 sm:mt-0">
                 <a href="#" class="hover:text-yellow-400 transition"><i class="fa-brands fa-youtube"></i></a>
                 <a href="#" class="hover:text-yellow-400 transition"><i class="fa-brands fa-facebook"></i></a>
                 <a href="#" class="hover:text-yellow-400 transition"><i class="fa-brands fa-instagram"></i></a>
@@ -254,7 +265,6 @@
 
     <!-- SCRIPT DATA GOOGLE SHEETS & MARQUEE -->
     <script>
-        // GANTI URL DI BAWAH INI DENGAN URL DEPLOYMENT APPS SCRIPT ANDA
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8Ewbw6oKHND33rqWpCweP0ptyAJAT-7RSX_a7s9cUrKqfy79BlWFgPXIqfDm5NKqS/exec';
 
         function formatTanggal(tgl) {
@@ -266,8 +276,8 @@
         }
 
         if (APPS_SCRIPT_URL === 'URL_WEB_APP_ANDA_DISINI' || APPS_SCRIPT_URL === '') {
-            document.getElementById('berita-container').innerHTML = '<p class="text-red-500 font-bold p-2">URL Apps Script belum dimasukkan.</p>';
-            document.getElementById('pengumuman-container').innerHTML = '<p class="text-red-500 font-bold p-2">URL Apps Script belum dimasukkan.</p>';
+            document.getElementById('berita-container').innerHTML = '<p class="text-red-500 font-bold p-2 text-sm">URL Apps Script belum dimasukkan.</p>';
+            document.getElementById('pengumuman-container').innerHTML = '<p class="text-red-500 font-bold p-2 text-sm">URL Apps Script belum dimasukkan.</p>';
         } else {
             fetch(APPS_SCRIPT_URL)
                 .then(response => response.json())
@@ -280,11 +290,11 @@
                         
                         beritaTerbaru.forEach(b => {
                             htmlBerita += `
-                                <a href="${b.url}" target="_blank" class="flex gap-5 items-start cursor-pointer group block mb-5 border-b border-gray-100 pb-5 last:border-0 last:pb-0 last:mb-0">
-                                    <img src="${b.gambar}" alt="Berita" class="w-32 h-24 object-cover rounded-lg shadow-sm border border-gray-100 group-hover:opacity-90 transition flex-shrink-0">
-                                    <div class="flex-1 pr-2">
-                                        <h4 class="font-bold text-gray-800 text-[15px] leading-snug group-hover:text-[#0b5c32] transition line-clamp-3">${b.judul}</h4>
-                                        <div class="flex items-center gap-2 mt-2 text-[11px] text-gray-500 font-medium">
+                                <a href="${b.url}" target="_blank" class="flex gap-3 sm:gap-5 items-start cursor-pointer group block mb-4 sm:mb-5 border-b border-gray-100 pb-4 sm:pb-5 last:border-0 last:pb-0 last:mb-0">
+                                    <img src="${b.gambar}" alt="Berita" class="w-24 h-20 sm:w-32 sm:h-24 object-cover rounded-lg shadow-sm border border-gray-100 group-hover:opacity-90 transition flex-shrink-0">
+                                    <div class="flex-1 pr-0 sm:pr-2">
+                                        <h4 class="font-bold text-gray-800 text-[13px] sm:text-[15px] leading-snug group-hover:text-[#0b5c32] transition line-clamp-3">${b.judul}</h4>
+                                        <div class="flex items-center gap-1.5 sm:gap-2 mt-1.5 sm:mt-2 text-[10px] sm:text-[11px] text-gray-500 font-medium">
                                             <i class="fa-regular fa-calendar-days text-yellow-500"></i>
                                             <span>${formatTanggal(b.tanggal)}</span>
                                         </div>
@@ -294,7 +304,7 @@
                         });
                         document.getElementById('berita-container').innerHTML = htmlBerita;
                     } else {
-                        document.getElementById('berita-container').innerHTML = '<p class="text-gray-500 text-sm">Belum ada berita terbaru.</p>';
+                        document.getElementById('berita-container').innerHTML = '<p class="text-gray-500 text-xs sm:text-sm">Belum ada berita terbaru.</p>';
                     }
 
                     // 2. RENDER PENGUMUMAN & MARQUEE
@@ -305,11 +315,11 @@
 
                         pengumumanTerbaru.forEach(p => {
                             htmlPengumuman += `
-                                <li class="flex items-start gap-3 py-3 border-b border-gray-100 last:border-0">
-                                    <div class="w-2 h-2 mt-1.5 rounded-full bg-yellow-400 flex-shrink-0"></div>
+                                <li class="flex items-start gap-2.5 sm:gap-3 py-2.5 sm:py-3 border-b border-gray-100 last:border-0">
+                                    <div class="w-1.5 h-1.5 sm:w-2 sm:h-2 mt-1.5 rounded-full bg-yellow-400 flex-shrink-0"></div>
                                     <div>
-                                        <p class="text-gray-800 font-semibold text-[14px] leading-snug">${p.teks}</p>
-                                        <p class="text-[11px] text-gray-500 mt-1 font-medium">${formatTanggal(p.tanggal)}</p>
+                                        <p class="text-gray-800 font-semibold text-[13px] sm:text-[14px] leading-snug">${p.teks}</p>
+                                        <p class="text-[10px] sm:text-[11px] text-gray-500 mt-1 font-medium">${formatTanggal(p.tanggal)}</p>
                                     </div>
                                 </li>
                             `;
@@ -319,11 +329,11 @@
                         document.getElementById('pengumuman-container').innerHTML = htmlPengumuman;
                         document.getElementById('teks-marquee').innerText = teksMarquee; 
                     } else {
-                        document.getElementById('pengumuman-container').innerHTML = '<p class="text-gray-500 text-sm">Belum ada pengumuman.</p>';
+                        document.getElementById('pengumuman-container').innerHTML = '<p class="text-gray-500 text-xs sm:text-sm">Belum ada pengumuman.</p>';
                     }
                 })
                 .catch(error => {
-                    document.getElementById('berita-container').innerHTML = '<p class="text-red-500 text-sm">Gagal terhubung ke server database.</p>';
+                    document.getElementById('berita-container').innerHTML = '<p class="text-red-500 text-xs sm:text-sm">Gagal terhubung ke server database.</p>';
                 });
         }
     </script>
